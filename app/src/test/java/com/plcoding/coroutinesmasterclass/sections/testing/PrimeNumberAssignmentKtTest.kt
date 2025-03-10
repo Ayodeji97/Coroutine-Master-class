@@ -7,13 +7,12 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
 
-class FibonacciKtTest {
+class PrimeNumberAssignmentKtTest {
 
     @Test
-    fun testFibonacci() = runTest {
+    fun testPrimeNumberAtIndex() = runTest {
         val dispatcher = coroutineContext[CoroutineDispatcher]
-        val result = fib(30, dispatcher!!)
-
-        assertTrue(result == 832_040)
+        val result = findPrimeNumberAtIndex(10, dispatcher!!)
+        assertTrue(result == 29)
     }
 }
