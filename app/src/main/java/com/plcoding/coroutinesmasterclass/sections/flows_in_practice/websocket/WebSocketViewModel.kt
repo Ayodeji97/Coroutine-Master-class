@@ -1,8 +1,13 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.plcoding.coroutinesmasterclass.sections.flows_in_practice.websocket
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.coroutinesmasterclass.util.api.HttpClientFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapConcat
@@ -23,6 +28,7 @@ class WebSocketViewModel: ViewModel() {
 
     private val client = WebSocketClient(HttpClientFactory.create())
 
+    @RequiresApi(Build.VERSION_CODES.O)
     val receivedLogs = client
         .listenToSocket("wss://echo.websocket.org/")
         .flatMapMerge {

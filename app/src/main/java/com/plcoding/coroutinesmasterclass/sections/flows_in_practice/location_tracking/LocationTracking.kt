@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.runningReduce
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.zip
 import kotlin.time.Duration
 import kotlin.time.DurationUnit

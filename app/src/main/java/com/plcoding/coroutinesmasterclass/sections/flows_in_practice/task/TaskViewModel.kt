@@ -1,5 +1,7 @@
 package com.plcoding.coroutinesmasterclass.sections.flows_in_practice.task
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.coroutinesmasterclass.util.db.TaskDao
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.ZoneOffset
 
+@RequiresApi(Build.VERSION_CODES.O)
 class TaskViewModel(
     private val taskDao: TaskDao
 ): ViewModel() {
@@ -23,6 +26,7 @@ class TaskViewModel(
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate = _selectedDate.asStateFlow()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     val tasks = selectedDate
         .map { date ->
             val startMillis = date

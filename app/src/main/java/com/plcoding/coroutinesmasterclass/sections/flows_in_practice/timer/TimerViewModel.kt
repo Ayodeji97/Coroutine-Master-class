@@ -8,17 +8,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
+import java.util.Locale
 import kotlin.math.min
 
 class TimerViewModel: ViewModel() {
 
-    val formattedTime = timeAndEmit(100f)
+    val formattedTime = timeAndEmit(10f)
         .runningReduce { totalElapsedTime, newElapsedTime ->
             totalElapsedTime + newElapsedTime
         }
         .map { totalElapsedTime ->
             totalElapsedTime.toComponents { hours, minutes, seconds, nanoseconds ->
                 String.format(
+                    Locale.getDefault(),
                     "%02d:%02d:%02d:%02d",
                     hours,
                     minutes,
