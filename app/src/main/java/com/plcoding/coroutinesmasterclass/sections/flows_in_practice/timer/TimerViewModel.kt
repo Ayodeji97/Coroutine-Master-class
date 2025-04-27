@@ -13,6 +13,12 @@ import kotlin.math.min
 
 class TimerViewModel: ViewModel() {
 
+    /**
+     * This runningReduce operator behaves like a fibinacci sequence.
+     * flowOf(1, 2, 3, 4).runningReduce { acc, value -> acc + value }.toList()
+     * will give you [1, 3, 6, 10]
+     * A practical scenario of runningReduce is to get all the flow emissions in a big list
+     */
     val formattedTime = timeAndEmit(10f)
         .runningReduce { totalElapsedTime, newElapsedTime ->
             totalElapsedTime + newElapsedTime

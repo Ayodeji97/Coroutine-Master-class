@@ -1,6 +1,9 @@
 package com.plcoding.coroutinesmasterclass.sections.flow_fundamentals
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
@@ -34,4 +37,16 @@ fun flowDemo() {
             println("Collector 2: $it")
         }.launchIn(GlobalScope)
     }
+
+    val customScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+    customScope.launch {
+        flow.onEach {
+            println("Collector 3: $it")
+        }
+    }
+
+    flow.onEach {
+        println("Collector 3: $it")
+    }.launchIn(customScope)
 }

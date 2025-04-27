@@ -28,6 +28,8 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.plcoding.coroutinesmasterclass.sections.flow_fundamentals.assignment.CountDownApp
+import com.plcoding.coroutinesmasterclass.sections.flow_fundamentals.assignment.CountDownViewModel
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.assignment.NetworkChecker
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.assignment.ShowSnackBar
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.backpressure.backpressureDemo
@@ -74,21 +76,27 @@ class MainActivity : ComponentActivity() {
                     onSearchTextChange = viewModel::onSearchQueryChange
                 )
                 */
-              var hasInternetConnection by rememberSaveable { mutableStateOf(false) }
-
-                LaunchedEffect(hasInternetConnection) {
-                    NetworkChecker(this@MainActivity)
-                        .isDeviceConnected()
-                        .onEach {
-                            hasInternetConnection = it
-                        }
-                        .launchIn(lifecycleScope)
-                }
+//              var hasInternetConnection by rememberSaveable { mutableStateOf(false) }
+//
+//                LaunchedEffect(hasInternetConnection) {
+//                    NetworkChecker(this@MainActivity)
+//                        .isDeviceConnected()
+//                        .onEach {
+//                            hasInternetConnection = it
+//                        }
+//                        .launchIn(lifecycleScope)
+//                }
 
                 Scaffold {
                     innerPadding ->
-                    ShowSnackBar(
-                        hasInternetConnection = hasInternetConnection,
+//                    ShowSnackBar(
+//                        hasInternetConnection = hasInternetConnection,
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .padding(innerPadding)
+//                    )
+
+                    CountDownApp(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)

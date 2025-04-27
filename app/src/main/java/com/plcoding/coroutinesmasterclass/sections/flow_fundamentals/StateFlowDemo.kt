@@ -7,6 +7,14 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+/**
+ * StateFlow is a state holder observable flow that emits its current and new state updates.
+ * Unlike SharedFlow and Flow, StateFlow is always active and has a current value. That is, it will
+ * the initial value can be set when creating the StateFlow object, and it will always emit the initial value
+ *
+ * Unlike Flow, StateFlow will emit the last value to the new collector, but normal flow
+ * will emit the whole block of code to the new collector.
+ */
 fun stateFlowDemo() {
     val stateFlow = MutableStateFlow(0)
 
