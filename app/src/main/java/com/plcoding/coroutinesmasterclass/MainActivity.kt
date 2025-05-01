@@ -30,6 +30,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.plcoding.coroutinesmasterclass.sections.flow_fundamentals.assignment.CountDownApp
 import com.plcoding.coroutinesmasterclass.sections.flow_fundamentals.assignment.CountDownViewModel
+import com.plcoding.coroutinesmasterclass.sections.flow_fundamentals.myFlowDemo
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.assignment.NetworkChecker
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.assignment.ShowSnackBar
 import com.plcoding.coroutinesmasterclass.sections.flows_in_practice.backpressure.backpressureDemo
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
         )
 
        // backpressureDemo()
+        myFlowDemo()
 
         setContent {
             CoroutinesMasterclassTheme {

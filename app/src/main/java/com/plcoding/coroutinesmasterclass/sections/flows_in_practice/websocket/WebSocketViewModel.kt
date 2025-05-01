@@ -7,17 +7,24 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.coroutinesmasterclass.util.api.HttpClientFactory
+import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 data class WebSocketLog(
     val formattedTime: String,
@@ -31,6 +38,23 @@ class WebSocketViewModel: ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     val receivedLogs = client
         .listenToSocket("wss://echo.websocket.org/")
+        // Error handling in flow - we can also retry for some cases as well
+        .retryWhen { cause, attempt ->
+            // we can suspend here - wait
+            //delay(3000L)
+            delay(2f.pow(attempt.toInt()).roundToInt() * 2000L)
+            cause is UnresolvedAddressException && attempt < 3
+        }
+        .catch { cause ->
+            when (cause) {
+                is UnknownHostException -> {
+
+                }
+                is UnresolvedAddressException -> {
+                    println("Opps!, no internet connection")
+                }
+            }
+        }
         .flatMapMerge {
             flow {
                 processLog()
